@@ -1,1 +1,6 @@
-
+venv/
+data/image_face/
+data/impressionism/
+data/realism/
+data/rococo/
+data/romanticism/
