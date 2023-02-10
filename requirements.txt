@@ -1,5 +1,5 @@
 tensorflow
 tensorflow_datasets
-tensorflow_examples
+git+https://github.com/tensorflow/examples.git
 matplotlib
 tf-nightly
