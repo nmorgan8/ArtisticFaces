@@ -5,7 +5,7 @@ from tensorflow_examples.models.pix2pix import pix2pix
 import os
 import time
 import matplotlib.pyplot as plt
-from IPython.display import clear_output
+# from IPython.display import clear_output
 
 AUTOTUNE = tf.data.AUTOTUNE
 
@@ -60,25 +60,25 @@ BATCH_SIZE = 1
 IMG_WIDTH = 256
 IMG_HEIGHT = 256
 
-train_humans = train_humans.cache().map(
+train_humans = train_humans.map(
     preprocess_image_train, num_parallel_calls=AUTOTUNE).shuffle(
     BUFFER_SIZE).batch(BATCH_SIZE)
 
-train_art = train_art.cache().map(
+train_art = train_art.map(
     preprocess_image_train, num_parallel_calls=AUTOTUNE).shuffle(
     BUFFER_SIZE).batch(BATCH_SIZE)
 
 test_humans = test_humans.map(
-    preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
+    preprocess_image_test, num_parallel_calls=AUTOTUNE).shuffle(
     BUFFER_SIZE).batch(BATCH_SIZE)
 
 test_art = test_art.map(
-    preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
+    preprocess_image_test, num_parallel_calls=AUTOTUNE).shuffle(
     BUFFER_SIZE).batch(BATCH_SIZE)
 
 
-sample_human = next(iter(train_humans))
-sample_art = next(iter(train_art))
+# sample_human = train_humans.take(1)
+# sample_art = train_art.take(1)
 
 # plt.subplot(121)
 # plt.title('Human')
@@ -98,13 +98,13 @@ generator_f = pix2pix.unet_generator(OUTPUT_CHANNELS, norm_type='instancenorm')
 discriminator_x = pix2pix.discriminator(norm_type='instancenorm', target=False)
 discriminator_y = pix2pix.discriminator(norm_type='instancenorm', target=False)
 
-to_art = generator_g(sample_human)
-to_human = generator_f(sample_art)
-plt.figure(figsize=(8, 8))
-contrast = 8
+# to_art = generator_g(sample_human)
+# to_human = generator_f(sample_art)
+# plt.figure(figsize=(8, 8))
+# contrast = 8
 
-imgs = [sample_human, to_art, sample_art, to_human]
-title = ['Horse', 'To Zebra', 'Zebra', 'To Horse']
+# imgs = [sample_human, to_art, sample_art, to_human]
+# title = ['Horse', 'To Zebra', 'Zebra', 'To Horse']
 
 # for i in range(len(imgs)):
 #   plt.subplot(2, 2, i+1)
@@ -172,7 +172,7 @@ ckpt = tf.train.Checkpoint(generator_g=generator_g,
                            discriminator_x_optimizer=discriminator_x_optimizer,
                            discriminator_y_optimizer=discriminator_y_optimizer)
 
-ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=5)
+ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=20)
 
 # if a checkpoint exists, restore the latest checkpoint.
 if ckpt_manager.latest_checkpoint:
@@ -182,7 +182,7 @@ if ckpt_manager.latest_checkpoint:
 
 
   #Training 
-EPOCHS = 2
+EPOCHS = 200
 
 def generate_images(model, test_input):
   prediction = model(test_input)
@@ -262,11 +262,10 @@ def train_step(real_x, real_y):
                                                 discriminator_y.trainable_variables))
 
 epoch_images = test_humans.take(5)
-images_dir = './results'
+images_dir = './realism/results'
 
-from tqdm import tqdm
-
-for epoch in tqdm(range(EPOCHS), desc = 'epoch'):
+for epoch in range(EPOCHS):
+  print(f'epoch: {epoch}')
   
   start = time.time()
 
@@ -274,31 +273,33 @@ for epoch in tqdm(range(EPOCHS), desc = 'epoch'):
   for image_x, image_y in tf.data.Dataset.zip((train_humans, train_art)):
     train_step(image_x, image_y)
     if n % 10 == 0:
-      print ('.', end='')
+      print(n)
     n += 1
 
 #   clear_output(wait=True)
   # Using a consistent image (sample_human) so that the progress of the model
   # is clearly visible.
   
-  idx = 0
-  os.mkdir(f'{images_dir}/epoch_{epoch}/')
+  if (epoch + 1) % 10 == 0:
+    idx = 0
+    os.mkdir(f'{images_dir}/epoch_{epoch}/')
 
-  for inp in epoch_images:
+    for inp in epoch_images:
 
-    prediction = generator_g(inp) 
-    plt.figure(figsize=(12, 12))
-    display_list = [inp[0], prediction[0]]
-    title = ['Input Image', 'Predicted Image']
-    for i in range(2):
-      plt.subplot(1, 2, i+1)
-      plt.title(title[i])
-      # getting the pixel values between [0, 1] to plot it.
-      plt.imshow(display_list[i] * 0.5 + 0.5)
-      plt.axis('off')
-    plt.savefig(f"{images_dir}/epoch_{epoch}/img_{idx}.png")
-    # plt.show()
-    idx +=1
+      prediction = generator_g(inp) 
+      plt.figure(figsize=(12, 12))
+      display_list = [inp[0], prediction[0]]
+      title = ['Input Image', 'Predicted Image']
+      for i in range(2):
+        plt.subplot(1, 2, i+1)
+        plt.title(title[i])
+        # getting the pixel values between [0, 1] to plot it.
+        plt.imshow(display_list[i] * 0.5 + 0.5)
+        plt.axis('off')
+      plt.savefig(f"{images_dir}/epoch_{epoch}/img_{idx}.png")
+      # plt.show()
+      idx +=1
+  print(time.time() - start)
 
   if (epoch + 1) % 5 == 0:
     ckpt_save_path = ckpt_manager.save()
