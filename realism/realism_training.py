@@ -172,7 +172,7 @@ ckpt = tf.train.Checkpoint(generator_g=generator_g,
                            discriminator_x_optimizer=discriminator_x_optimizer,
                            discriminator_y_optimizer=discriminator_y_optimizer)
 
-ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=20)
+ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=21)
 
 # if a checkpoint exists, restore the latest checkpoint.
 if ckpt_manager.latest_checkpoint:
@@ -301,7 +301,7 @@ for epoch in range(EPOCHS):
       idx +=1
   print(time.time() - start)
 
-  if (epoch + 1) % 5 == 0:
+  if (epoch + 1) % 10 == 0:
     ckpt_save_path = ckpt_manager.save()
     print ('Saving checkpoint for epoch {} at {}'.format(epoch+1,
                                                          ckpt_save_path))
