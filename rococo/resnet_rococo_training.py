@@ -474,8 +474,8 @@ class GANMonitor(keras.callbacks.Callback):
             prediction.save(
                 "generated_img_{i}_{epoch}.png".format(i=i, epoch=epoch + 1)
             )
-        plt.show()
-        plt.close()
+        # plt.show()
+        # plt.close()
 
 
 # Train the model
