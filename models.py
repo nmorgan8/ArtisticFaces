@@ -29,6 +29,12 @@ ckpt = tf.train.Checkpoint(generator_g=generator_g,
                            discriminator_x_optimizer=discriminator_x_optimizer,
                            discriminator_y_optimizer=discriminator_y_optimizer)
 
-checkpoint_path = "./rococo_checkpoints/ckpt-11.data-00000-of-00001"
+checkpoint_path = "./rococo_checkpoints/train/ckpt-11"
+print(generator_g)
 
-ckpt.read(checkpoint_path)
+# print(type(ckpt))
+# print(ckpt)
+
+ckpt.restore(checkpoint_path).expect_partial()
+
+print(generator_g)
