@@ -3,13 +3,12 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import numpy as np
 import tensorflow as tf
+import tensorflow.keras
 
 def generate_images(model, test_input):
-  print(test_input.shape)
-  print(test_input)
+
   prediction = model(test_input)
-  print(prediction.shape)
-  print(prediction)
+
     
   plt.figure(figsize=(12, 12))
 
@@ -27,6 +26,7 @@ def generate_images(model, test_input):
 generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimizer, generator_f_optimizer, discriminator_x_optimizer, discriminator_y_optimizer = models.get_model()
 
 test_img = Image.open('./image.png')
+test_img = np.array(test_img)
 test_img = tf.convert_to_tensor(test_img)
 test_img = models.normalize(test_img)
 test_img = tf.reshape(test_img, [1, 256, 256, 3])

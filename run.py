@@ -7,9 +7,9 @@ generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimize
 
 def generate_image(inp, file, art, choice):
     inp = models.normalize(inp)
-    inp = tf.reshape(inp, [1, 256, 256, 3])
+    inp = tf.expand_dims(inp, axis=0)
     image = generator_g(inp)
-    # image = models.unnormalize(image)
+    image = models.unnormalize(image)
     return image.numpy()[0]
 
 demo = gr.Interface(
