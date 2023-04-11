@@ -12,9 +12,6 @@ def generate_image(inp, file, art, choice):
     image = models.unnormalize(image)
     return image.numpy()[0]
 
-def display_img(inp, file, art, choice):
-    return inp
-
 demo = gr.Interface(
     fn=generate_image,
     inputs=[
