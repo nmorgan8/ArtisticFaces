@@ -6,10 +6,10 @@ import models
 generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimizer, generator_f_optimizer, discriminator_x_optimizer, discriminator_y_optimizer = models.get_model()
 
 def generate_image(inp, file, art, choice):
-    inp = inp.reshape((-1, 256, 256, 3))
     inp = models.normalize(inp)
+    inp = tf.reshape(inp, [1, 256, 256, 3])
     image = generator_g(inp)
-    image = models.unnormalize(image)
+    # image = models.unnormalize(image)
     return image.numpy()[0]
 
 demo = gr.Interface(

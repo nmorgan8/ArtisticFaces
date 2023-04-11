@@ -25,9 +25,9 @@ def get_model():
                            discriminator_x_optimizer=discriminator_x_optimizer,
                            discriminator_y_optimizer=discriminator_y_optimizer)
 
-    checkpoint_path = "./rococo_checkpoints/train/ckpt-11"
+    checkpoint_path = "./rococo_checkpoints/train/ckpt-12"
 
-    ckpt.restore(checkpoint_path)
+    ckpt.restore(checkpoint_path).expect_partial()
 
     return generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimizer, generator_f_optimizer, discriminator_x_optimizer, discriminator_y_optimizer
 
