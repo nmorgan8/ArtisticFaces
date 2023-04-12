@@ -19,8 +19,9 @@ def unpreprocess(img):
     img = img[..., ::-1]
     return img
 
-#load style image 
+#testing load style image
 style_img = load_preprocess_img(p='/Users/claudiagusti/Desktop/Spring2022/CMSI 6998/ArtisticFaces/scripts/VGG/Abstract Style Art.jpeg', shape=(224,224))
 batch_shape = style_img.shape
 shape = style_img.shape[1:]
 print(shape)
+
