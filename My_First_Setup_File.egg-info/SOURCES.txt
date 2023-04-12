@@ -15,4 +15,4 @@ scripts/CycleGAN/cycle_gan_model.py
 scripts/CycleGAN/preprocessing.py
 scripts/VGG/VGG_gan_model.py
 scripts/VGG/__init__.py
-scripts/VGG/preprecessing.py
+scripts/VGG/preprocessing.py
