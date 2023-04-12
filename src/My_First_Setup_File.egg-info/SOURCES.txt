@@ -1,0 +1,7 @@
+README.md
+setup.py
+src/run.py
+src/My_First_Setup_File.egg-info/PKG-INFO
+src/My_First_Setup_File.egg-info/SOURCES.txt
+src/My_First_Setup_File.egg-info/dependency_links.txt
+src/My_First_Setup_File.egg-info/top_level.txt
