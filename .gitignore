@@ -1,12 +1,6 @@
 venv/
-data/image_face/
-data/impressionism/
-data/realism/
-data/rococo/
-data/romanticism/
-data/UTKFace/
-data/human_face/
+data/*
 python_env/
 test_env/
-*_checkpoints/
+checkpoints/*
 __pycache__
