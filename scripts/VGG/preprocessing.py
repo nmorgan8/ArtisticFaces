@@ -118,73 +118,81 @@ from datetime import datetime
 import scipy
 import keras.utils as image #[C]: Added this here because this is the newest version of tensorflow
 
-tf.compat.v1.disable_eager_execution() #[C]:Placing this code block here to because of keras upgrade
 
-#loading,processing and defining multi_output_model and style loss computation of style image
 
-#Style image load and VGG model load.
-path = '/content/Abstract Style Art.jpeg'
-img = image.load_img(path)
-x = image.img_to_array(img)
-x = np.expand_dims(x,axis=0)    
-x = preprocess_input(x)
 
-#shape
-batch_shape = x.shape
-shape = x.shape[1:]
-vgg = vgg_avg_pooling(shape)
+def load_preprocess_img(p,shape = None):
+    Img = image.load_img(p, target_size=shape)
+    # Img = tf.keras.utils.load_img(p, target_size=shape)
 
-#Define multi-output model
-symb_conv_outputs = [layer.get_output_at(1) for layer in vgg.layers if layer.name.endswith('conv1')]
-multi_output_model = Model(vgg.input, symb_conv_outputs)
-symb_layer_out = [K.variable(y) for y in multi_output_model.predict(x)]
+    X = image.img_to_array(Img)
+    X = np.expand_dims(X,axis=0)    
+    X = preprocess_input(X)
+    return X
 
-#Conv layer weight matrix
-weights = [0.2,0.4,0.3,0.5,0.2]    
-loss=0
-#Total style loss
-for symb,actual,w in zip(symb_conv_outputs,symb_layer_out,weights):
-    loss += w * style_loss(symb[0],actual[0])
+def preprocess_img(frame,shape = None):
+    X = np.expand_dims(frame,axis=0)    
+    X = preprocess_input(X.astype(('float64')))
+    return X
     
-#gradients which are needed by the optimizer    
-grad = K.gradients(loss,multi_output_model.input)
-#.function should be lower case 
-get_loss_grad = K.function(inputs=[multi_output_model.input], outputs=[loss] + grad)
 
-#Scipy's minimizer function(fmin_l_bfgs_b) allows us to pass back function value f(x) and 
-#its gradient f'(x), which we calculated in earlier step. 
-#However, we need to unroll the input to minimizer function in1-D array format and both loss and gradient must be np.float64.
+#Loading style image
+style_img = load_preprocess_img(p='/content/Abstract Style Art.jpeg', shape=(224,224))
+batch_shape = style_img.shape
+shape = style_img.shape[1:]
+shape
 
-def get_loss_grad_wrapper(x_vec):
-    l,g = get_loss_grad([x_vec.reshape(*batch_shape)])
-    return l.astype(np.float64), g.flatten().astype(np.float64) 
+shape = (224,224,3)
 
-#Function to minimize loss
-def min_loss(fn,epochs,batch_shape):
-    t0 = datetime.now()
-    losses = []
-    x = np.random.randn(np.prod(batch_shape))
-    for i in range(epochs):
-        x, l, _ = scipy.optimize.fmin_l_bfgs_b(func=fn,x0=x,maxfun=20)
-    # bounds=[[-127, 127]]*len(x.flatten())
-    #x = np.clip(x, -127, 127)
-    # print("min:", x.min(), "max:", x.max())
-        print("iter=%s, loss=%s" % (i, l))
-        losses.append(l)
-    print("duration:", datetime.now() - t0)
-    plt.plot(losses)
-    plt.show()
+#customizes keras standard VGG16, get rid of max pooling (because it throws away information) and replace with average pooling layer 
+def vgg_avg_pooling(shape):
+    vgg = VGG16(input_shape=shape,weights='imagenet',include_top=False)
+    model = Sequential()
+    for layer in vgg.layers:
+        if layer.__class__ == MaxPooling2D:
+        # replace it with average pooling    
+            model.add(AveragePooling2D())
+        else:
+            model.add(layer)
+    return model   
 
-    newimg = x.reshape(*batch_shape)
-    final_img = unpreprocess(newimg)
-    return final_img[0]   
+#[C]: Not really sure what this is doing? 
+def vgg_cutoff(shape,num_conv):
+    if num_conv<1|num_conv>13:
+        print('Error layer must be within range of [1,13]')
+    model = vgg_avg_pooling(shape)
+    new_model = Sequential()
+    n=0
+    for layer in model.layers:
+        new_model.add(layer)
+        if layer.__class__ == Conv2D:
+            n+=1
+        if n >= num_conv:
+            break
+    return new_model
 
-#Check if Output directory exists, if not, create a new output directory
-import os
+#A gram matrix of a set of images represents the similarity (or difference) between two images 
+def gram_matrix(img):
+    # input is (H, W, C) (C = # feature maps)
+    # we first need to convert it to (C, H*W)
+    X = K.batch_flatten(K.permute_dimensions(img,(2,0,1)))
+    # now, calculate the gram matrix
+    # gram = XX^T / N
+    gram_mat = K.dot(X,K.transpose(X))/img.get_shape().num_elements()
+    return gram_mat 
 
-DIR = '/content/style_images_output'
-if not os.path.isdir(DIR):
-  os.makedirs(DIR)
-  print("created folder: ", DIR)
-else: 
-  print(DIR, "folder already exists.")
+def style_loss(y,t):
+    return K.mean(K.square(gram_matrix(y)-gram_matrix(t)))
+
+#restore original image pixel values generated from VGG-16 
+def unpreprocess(img):
+    img[..., 0] += 103.939
+    img[..., 1] += 116.779
+    img[..., 2] += 126.68
+    img = img[..., ::-1]
+    return img
+
+def scale(x):
+    x = x-x.min()
+    x=x/x.max()
+    return x

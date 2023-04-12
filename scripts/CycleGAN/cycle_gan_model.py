@@ -33,9 +33,6 @@ def get_model():
 
     return generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimizer, generator_f_optimizer, discriminator_x_optimizer, discriminator_y_optimizer
 
-def get_vgg(style_img):
-    pass
-
 
 # normalizing the images to [-1, 1]
 def normalize(image):
