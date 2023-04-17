@@ -1,3 +1,11 @@
+"""
+This script uses tensorflow hub to download ta neural net transfer model and runs inference on a content and style image to produce an image output
+Author: Claudia G
+
+"""
+
+
+
 import os
 import tensorflow as tf
 # Load compressed models from tensorflow_hub
