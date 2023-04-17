@@ -4,4 +4,5 @@ python_env/
 test_env/
 checkpoints/*
 __pycache__
-# ignore .egg-info files
+# ignore .egg-info files #TODO: This is not working - find out why 
+
