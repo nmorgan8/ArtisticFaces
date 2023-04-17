@@ -55,6 +55,11 @@ def style_content_loss(outputs, style_weight, content_weight, style_targets, con
     loss = style_loss + content_loss
     return loss
 
+def high_pass_x_y(image):
+  x_var = image[:, :, 1:, :] - image[:, :, :-1, :]
+  y_var = image[:, 1:, :, :] - image[:, :-1, :, :]
+
+  return x_var, y_var
 
 class StyleContentModel(tf.keras.models.Model):
   """When called on an image, this model returns the gram matrix (style) of the style_layers and content of the content_layers:"""
