@@ -1,6 +1,5 @@
 import tensorflow as tf
 from tensorflow_examples.models.pix2pix import pix2pix
-import matplotlib.pyplot as plt
 
 
 def get_model():
@@ -34,3 +33,13 @@ def get_model():
     return generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimizer, generator_f_optimizer, discriminator_x_optimizer, discriminator_y_optimizer
 
 
+# normalizing the images to [-1, 1]
+def normalize(image):
+    image = tf.cast(image, tf.float32)
+    image = (image / 127.5) - 1
+    return image
+
+def unnormalize(image):
+    image = (image + 1) * 127.5
+    image = tf.cast(image, tf.uint8)
+    return image

@@ -1,4 +1,4 @@
-import gradio as gr
+import run as gr
 import numpy as np 
 import tensorflow as tf
 import scripts
