@@ -75,8 +75,15 @@ def get_model():
   hub_model = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
   return hub_model
 
-def get_style():
-  return load_img(style_path)
+def get_style(style):
+  if style == "Rococo":
+    return load_img('data/rococo_vgg_sample.jpeg')
+  elif style == "Romanticism":
+    return load_img('data/romanticism_vgg_sample.jpeg')
+  elif style == "Impressionism":
+    return load_img('data/impressionism_vgg_sample.jpeg')
+  elif style == "Realism":
+    return load_img('data/realism_vgg_sample.jpeg')
 
 content_image = load_img(content_path)
 style_image = load_img(style_path)
