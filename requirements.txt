@@ -2,5 +2,5 @@ tensorflow
 tensorflow_datasets
 git+https://github.com/tensorflow/examples.git
 matplotlib
-tf-nightly
+# tf-nightly
 hyperas

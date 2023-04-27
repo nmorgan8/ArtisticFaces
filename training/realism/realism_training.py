@@ -1,6 +1,6 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
-from tensorflow_examples.models.pix2pix import pix2pix
+from examples.tensorflow_examples.models.pix2pix import pix2pix
 
 import os
 import time
@@ -45,11 +45,11 @@ def preprocess_image_test(image):
 
 
 #Assign train and test sets 
-train_art = tf.keras.utils.image_dataset_from_directory('data/realism', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
-test_art = tf.keras.utils.image_dataset_from_directory('data/realism', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
+train_art = tf.keras.utils.image_dataset_from_directory('data/Realism_wiki', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
+test_art = tf.keras.utils.image_dataset_from_directory('data/Realism_wiki', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
 
-train_human = tf.keras.utils.image_dataset_from_directory('data/human_face', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
-test_human = tf.keras.utils.image_dataset_from_directory('data/human_face', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
+train_human = tf.keras.utils.image_dataset_from_directory('data/image_net', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
+test_human = tf.keras.utils.image_dataset_from_directory('data/image_net', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
 
 
 train_humans, train_art = train_human, train_art
@@ -182,7 +182,7 @@ if ckpt_manager.latest_checkpoint:
 
 
   #Training 
-EPOCHS = 200
+EPOCHS = 100
 
 def generate_images(model, test_input):
   prediction = model(test_input)
@@ -262,7 +262,7 @@ def train_step(real_x, real_y):
                                                 discriminator_y.trainable_variables))
 
 epoch_images = test_humans.take(5)
-images_dir = './realism/results'
+images_dir = './training/realism/result_wiki' #TODO: had to change this or else this caused an error
 
 for epoch in range(EPOCHS):
   print(f'epoch: {epoch}')

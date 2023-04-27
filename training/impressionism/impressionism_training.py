@@ -45,6 +45,7 @@ def preprocess_image_test(image):
 
 
 #Assign train and test sets 
+#TODO assign new directory for new data here 
 train_art = tf.keras.utils.image_dataset_from_directory('data/impressionism', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
 test_art = tf.keras.utils.image_dataset_from_directory('data/impressionism', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
 
@@ -172,7 +173,7 @@ ckpt = tf.train.Checkpoint(generator_g=generator_g,
                            discriminator_x_optimizer=discriminator_x_optimizer,
                            discriminator_y_optimizer=discriminator_y_optimizer)
 
-ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=21)
+ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=50)
 
 # if a checkpoint exists, restore the latest checkpoint.
 if ckpt_manager.latest_checkpoint:
@@ -182,7 +183,8 @@ if ckpt_manager.latest_checkpoint:
 
 
   #Training 
-EPOCHS = 200
+#[C]: changed total epochs from 200 to 100
+EPOCHS = 100
 
 def generate_images(model, test_input):
   prediction = model(test_input)
@@ -262,7 +264,8 @@ def train_step(real_x, real_y):
                                                 discriminator_y.trainable_variables))
 
 epoch_images = test_humans.take(5)
-images_dir = './impressionism/results'
+#TODO: replace directory with new one
+images_dir = './impressionism/result_wiki'
 
 for epoch in range(EPOCHS):
   print(f'epoch: {epoch}')
