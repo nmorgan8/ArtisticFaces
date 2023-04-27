@@ -53,6 +53,7 @@ def load_img(path_to_img):
 
 def load_input(img):
   max_dim = 512
+  img = tf.image.convert_image_dtype(img, tf.float32)
   shape = tf.cast(tf.shape(img)[:-1], tf.float32)
   long_dim = max(shape)
   scale = max_dim / long_dim
@@ -85,8 +86,8 @@ def get_style(style):
   elif style == "Realism":
     return load_img('data/realism_vgg_sample.jpeg')
 
-content_image = load_img(content_path)
-style_image = load_img(style_path)
+# content_image = load_img(content_path)
+# style_image = load_img(style_path)
 
 # plt.subplot(1, 2, 1)
 # print('showing content image')
@@ -102,3 +103,5 @@ style_image = load_img(style_path)
 # print('printing final image..')
 # plt.imshow(tensor_to_image(stylized_image))
 # plt.show()
+
+vgg_model = get_model()

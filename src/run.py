@@ -10,7 +10,6 @@ vgg_model = get_model()
 
 def generate_image(inp, file, art, choice):
     if choice == "VGG":
-        inp = tf.cast(inp, tf.float32)
         inp = load_input(inp)
         style_img = get_style(art)
         stylized_image = vgg_model(tf.constant(inp), tf.constant(style_img))[0]
