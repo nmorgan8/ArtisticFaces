@@ -45,8 +45,8 @@ def preprocess_image_test(image):
 
 
 #Assign train and test sets 
-train_art = tf.keras.utils.image_dataset_from_directory('data/Romanticism_wiki', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
-test_art = tf.keras.utils.image_dataset_from_directory('data/Romanticism_wiki', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
+train_art = tf.keras.utils.image_dataset_from_directory('data/Symbolism_wiki', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
+test_art = tf.keras.utils.image_dataset_from_directory('data/Symbolism_wiki', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
 
 train_human = tf.keras.utils.image_dataset_from_directory('data/image_net', validation_split=0.2, subset='training', seed=123, image_size=(256, 256), labels=None, batch_size=None)
 test_human = tf.keras.utils.image_dataset_from_directory('data/image_net', validation_split=0.2, subset='validation', seed=123, image_size=(256, 256), labels=None, batch_size=None)
@@ -260,7 +260,7 @@ def train_step(real_x, real_y):
                                                 discriminator_y.trainable_variables))
 
 epoch_images = test_humans.take(5)
-images_dir = './training/romanticism/result_wiki' #TODO: had to change this or else this caused an error
+images_dir = './training/symbolism/result_wiki' #TODO: had to change this or else this caused an error
 
 for epoch in range(EPOCHS):
   print(f'epoch: {epoch}')

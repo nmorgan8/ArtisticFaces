@@ -77,8 +77,8 @@ def get_model():
   return hub_model
 
 def get_style(style):
-  if style == "Rococo":
-    return load_img('data/rococo_vgg_sample.jpeg')
+  if style == "Symbolism":
+    return load_img('data/symbolism_vgg_sample.jpeg')
   elif style == "Romanticism":
     return load_img('data/romanticism_vgg_sample.jpeg')
   elif style == "Impressionism":

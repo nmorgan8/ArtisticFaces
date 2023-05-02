@@ -2,7 +2,21 @@ import tensorflow as tf
 from tensorflow_examples.models.pix2pix import pix2pix
 
 
-def get_model():
+def get_generators():
+    impressionism_gen = get_gen("impressionism")
+    realism_gen = get_gen("realism")
+    romanticism_gen = get_gen("romanticism")
+    # symbolism_gen = get_gen("symbolism")
+
+
+    return impressionism_gen, realism_gen, romanticism_gen, impressionism_gen
+
+def get_gen(art):
+    impressionism_ckpt_path = "./checkpoints/train_impressionism_gradio/ckpt-9"
+    realism_ckpt_path = "./checkpoints/train_realism_gradio/ckpt-9"
+    romanticism_ckpt_path = "./checkpoints/romanticism_checkpoints/train/ckpt-9"
+    # symbolism_ckpt_path = "./checkpoints/train_impressionism_gradio/ckpt-9"
+
     generator_g = pix2pix.unet_generator(3, norm_type='instancenorm')
     generator_f = pix2pix.unet_generator(3, norm_type='instancenorm')
 
@@ -23,14 +37,19 @@ def get_model():
                            generator_f_optimizer=generator_f_optimizer,
                            discriminator_x_optimizer=discriminator_x_optimizer,
                            discriminator_y_optimizer=discriminator_y_optimizer)
-
-
     
-    checkpoint_path = "./checkpoints/rococo_checkpoints/train/ckpt-12"
+    if art == "impressionism":
+        ckpt.restore(impressionism_ckpt_path).expect_partial()
+    if art == "realism":
+        ckpt.restore(realism_ckpt_path).expect_partial()
+    if art == "romanticism":
+        ckpt.restore(romanticism_ckpt_path).expect_partial()
+    # if art == 'symbolism':
+    #     ckpt.restore(symbolism_ckpt_path).expect_partial()
 
-    ckpt.restore(checkpoint_path).expect_partial()
+    return generator_g
+        
 
-    return generator_g, generator_f, discriminator_x, discriminator_y, generator_g_optimizer, generator_f_optimizer, discriminator_x_optimizer, discriminator_y_optimizer
 
 
 # normalizing the images to [-1, 1]
