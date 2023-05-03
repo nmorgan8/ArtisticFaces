@@ -22,13 +22,19 @@ git clone https://github.com/nmorgan8/ArtisticFaces.git
 cd ArtisticFaces
 ```
 
-3. install project requirements and set module dependencies 
+3. Install project requirements and set module dependencies 
 ```
 pip install -r requirements.txt
 python setup.py install 
 ```
 
-4. launch gradio app interface to interact with our models 
+4. Install tensorflow_examples 
+```
+cd ..
+git clone https://github.com/tensorflow/examples.git
+```
+
+5. Launch gradio app interface to interact with our models 
 ```
 python src/run.py 
 ```
