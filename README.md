@@ -15,6 +15,8 @@ This repo contains code for a machine learning based platform for transfering hi
 - training: training script for CycleGAN
 - data: contains compressed files to image data used to train
 
+---
+
 ## Getting Started
 
 To get a local copy up and running, please follow these simple steps.
@@ -25,7 +27,7 @@ Here is what you need to run ArtisiticFaces.
 
 - Python3
 - pip
-- Conda (use GPU on Windows machine)
+- Miniconda\* (optional to use GPU on Windows machine)
 
 ### Setup Repository
 
@@ -61,21 +63,85 @@ git clone https://github.com/tensorflow/examples.git
 python3 setup.py install
 ```
 
-### Untar Model Checkpoints
+### Extract Model Checkpoints
 
-1. Untar PROD.tar.gz to retrieve trained models in checkpoints directory
+- Untar PROD.tar.gz to retrieve trained models
 
 ```
+tar -xvzf checkpoints/PROD.tar.gz -C checkpoints/
+```
 
+- Unzip PROD.zip to retrieve trained models
+
+```
+unzip checkpoints/PROD.zip
+```
+
+- Use softwares (7zip, Archive Utilities, etc.) to extract model checkpoints and save to
+
+```
+ArtisticFaces/checkpoints/<name_of_art_style>/<ckpt>
 ```
 
 ### Launch Gradio
+
+1. Navigate to ArtisticFaces home directory
+
+2. Run src/run.py file to start gradio server
 
 ```
 python3 src/run.py
 ```
 
-### Common Errors
+---
+
+## Optional Environment Setup
+
+Optional instuctions to setup GPU if on Windows Machine (tensorflow does not allow MAC GPU use) and create a python virtual environment
+
+### Windows GPU Setup
+
+Use the following instructions to setup Windows Machine to run Tensorflow on local GPU
+
+1. Install and update [Nvidia GPU Drivers](https://www.nvidia.com/download/index.aspx?lang=en-us)
+
+2. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+
+3. Create conda environment
+
+```
+conda create --name tf python=3.10
+```
+
+    * Activate conda evironment
+
+    ```
+    conda activate tf
+    ```
+
+    * Deactivate conda environment
+
+    ```
+    conda deactivate
+    ```
+
+### Create python virtual environment
+
+Use the following instructions to create a python virutal environment to ensure no dependency issues with python modules.
+
+If using virtual environment, must create env **BEFORE** installing python modules
+
+1. Navigate to ArtisticFaces directory
+
+2. Create Virtual Environment
+
+```
+python3 -m venv <name_of_virtual_env>
+```
+
+---
+
+## Common Errors
 
 1. ValueError: Trying to load a model of incompatible/unknown type. <file_name>
 
