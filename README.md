@@ -75,10 +75,10 @@ tar -xvzf checkpoints/PROD.tar.gz -C checkpoints/
 unzip checkpoints/PROD.zip
 ```
 
-- Use softwares (7zip, Archive Utilities, etc.) to extract model checkpoints and save to
+- Use softwares (7zip, Archive Utilities, etc.) to extract PROD directory containing the trained models
 
 ```
-ArtisticFaces/checkpoints/<name_of_art_style>/<ckpt>
+ArtisticFaces/checkpoints/
 ```
 
 ### Launch Gradio
