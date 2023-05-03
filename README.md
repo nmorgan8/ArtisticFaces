@@ -25,9 +25,9 @@ Here is what you need to run ArtisiticFaces.
 
 - Python3
 - pip
-- Conda (use GPU on machine)
+- Conda (use GPU on Windows machine)
 
-### Setup
+### Setup Repository
 
 1. git clone this repo
 
@@ -41,18 +41,24 @@ git clone https://github.com/nmorgan8/ArtisticFaces.git
 cd ArtisticFaces
 ```
 
-3. Install project requirements and set module dependencies
+### Setup Python Modules
+
+1. Install project requirements and set module dependencies
 
 ```
 pip install -r requirements.txt
-python setup.py install
 ```
 
-4. Install tensorflow_examples
+2. Install tensorflow_examples
 
 ```
-cd ..
 git clone https://github.com/tensorflow/examples.git
+```
+
+3. Set module dependencies
+
+```
+python setup.py install
 ```
 
 ### Launch Gradio

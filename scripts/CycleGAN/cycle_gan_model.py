@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow_examples.models.pix2pix import pix2pix
+from examples.tensorflow_examples.models.pix2pix import pix2pix
 
 
 def get_generators():

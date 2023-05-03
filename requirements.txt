@@ -1,6 +1,6 @@
+gradio
 tensorflow
 tensorflow_datasets
-git+https://github.com/tensorflow/examples.git
+tensorflow_hub
 matplotlib
-# tf-nightly
 hyperas
