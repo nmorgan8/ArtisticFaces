@@ -58,12 +58,29 @@ git clone https://github.com/tensorflow/examples.git
 3. Set module dependencies
 
 ```
-python setup.py install
+python3 setup.py install
+```
+
+### Untar Model Checkpoints
+
+1. Untar PROD.tar.gz to retrieve trained models in checkpoints directory
+
+```
+
 ```
 
 ### Launch Gradio
 
 ```
+python3 src/run.py
+```
+
+### Common Errors
+
+1. ValueError: Trying to load a model of incompatible/unknown type. <file_name>
+
+```
+rm -r <file_name>
 python3 src/run.py
 ```
 
