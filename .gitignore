@@ -9,5 +9,5 @@ checkpoints/s*
 checkpoints/t*
 checkpoints/PROD/
 __pycache__
-# ignore .egg-info files #TODO: This is not working - find out why 
+**.egg-info
 
