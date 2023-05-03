@@ -2,7 +2,11 @@ venv/
 data/*
 python_env/
 test_env/
-checkpoints/*
+checkpoints/i*
+checkpoints/o*
+checkpoints/r*
+checkpoints/s*
+checkpoints/t*
 __pycache__
 # ignore .egg-info files #TODO: This is not working - find out why 
 

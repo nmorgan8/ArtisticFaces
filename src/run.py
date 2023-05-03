@@ -44,7 +44,7 @@ webcam = gr.Interface(
     inputs=[
         gr.Image(source='webcam', label='Style Image'),
         gr.Dropdown(["Impressionism", "Symbolism", "Romanticism", "Realism"], label="Art Period"),
-        gr.Dropdown(["VGG", "CycleGANs (UNET)"], label="Model Choice")
+        gr.Dropdown(["CycleGANs (UNET)", "VGG"], label="Model Choice")
     ],
     outputs=[
         "image"
@@ -59,7 +59,7 @@ upload = gr.Interface(
     inputs=[
         gr.Image(source='upload', label='Style Image'),
         gr.Dropdown([ "Impressionism", "Symbolism", "Romanticism", "Realism"], label="Art Period"),
-        gr.Dropdown(["VGG", "CycleGANs (UNET)"], label="Model Choice")
+        gr.Dropdown(["CycleGANs (UNET)", "VGG"], label="Model Choice")
     ],
     outputs=[
         "image"
