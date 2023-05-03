@@ -28,7 +28,7 @@ python setup.py install
 
 4. launch gradio app interface to interact with our models 
 ```
-python run.py 
+python src/run.py 
 ```
 
 
