@@ -139,10 +139,15 @@ python3 -m venv <name_of_virtual_env>
 
 1. ValueError: Trying to load a model of incompatible/unknown type. <file_name>
 
+   - Delete cached model files to allow it to re-download
+
 ```
 rm -r <file_name>
-python3 src/run.py
 ```
+
+2. Navigate to ArtisticFaces home directory
+
+3. Re-launch gradio server
 
 ## Team Members
 

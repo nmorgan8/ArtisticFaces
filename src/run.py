@@ -71,5 +71,5 @@ upload = gr.Interface(
 
 demo = gr.TabbedInterface([webcam, upload], ["Webcam", "Upload"])
 
-demo.launch(share=True)
+demo.launch(share=False)
 
