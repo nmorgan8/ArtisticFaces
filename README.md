@@ -11,7 +11,7 @@ This repo contains code for a machine learning based platform for transfering hi
   
 ## Running our Gradio interface
 1. git clone this repo
-````
+```
 git clone 
 ```
 
