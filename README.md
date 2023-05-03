@@ -12,12 +12,12 @@ This repo contains code for a machine learning based platform for transfering hi
 ## Running our Gradio interface
 1. git clone this repo
 ```
-git clone 
+git clone https://github.com/nmorgan8/ArtisticFaces.git
 ```
 
 2. cd into directory 
 ```
-cd Artistic Faces
+cd ArtisticFaces
 ```
 
 3. install project requirements and set module dependencies 
