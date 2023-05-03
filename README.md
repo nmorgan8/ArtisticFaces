@@ -1,7 +1,7 @@
 # ArtisticFaces
 
 ## Overview
-This repo contains code for a machine learning based platform for transfering historical art styles like impressionism and realism into a user's uploaded/captured images in real-time using state-of-the-art using two different appraaches: 
+This repo contains code for a machine learning based platform for transfering historical art styles like impressionism and realism into a user's uploaded/captured images in real-time using two different appraaches: 
  - Training and fine-tuning a Cyclical Generative Adversarial Network (CycleGAN) on ImageNet and Wikiart dataset
  - Utilizing layers in VGG - 16 to capture style information for style transference
  
