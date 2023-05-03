@@ -15,8 +15,6 @@ This repo contains code for a machine learning based platform for transfering hi
 - training: training script for CycleGAN
 - data: contains compressed files to image data used to train
 
----
-
 ## Getting Started
 
 To get a local copy up and running, please follow these simple steps.
@@ -93,8 +91,6 @@ ArtisticFaces/checkpoints/<name_of_art_style>/<ckpt>
 python3 src/run.py
 ```
 
----
-
 ## Optional Environment Setup
 
 Optional instuctions to setup GPU if on Windows Machine (tensorflow does not allow MAC GPU use) and create a python virtual environment
@@ -138,8 +134,6 @@ If using virtual environment, must create env **BEFORE** installing python modul
 ```
 python3 -m venv <name_of_virtual_env>
 ```
-
----
 
 ## Common Errors
 
