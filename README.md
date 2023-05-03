@@ -39,8 +39,3 @@ python src/run.py
 ## Technologies
  - CycleGANs, VGG-Net 
  - Tensorflow, Keras, matplotlib, Gradio
-
-## Mini-Goals
- - Develop POC with one art movement
- - Test different art movements over longer epochs of training
- - Build basic pipeline in Gradio
