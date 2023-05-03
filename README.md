@@ -5,9 +5,11 @@ This repo contains code for a machine learning based platform for transfering hi
  - Training and fine-tuning a Cyclical Generative Adversarial Network (CycleGAN) on ImageNet and Wikiart dataset
  - Utilizing layers in VGG - 16 to capture style loss and information for style transference
  
-## Structure: 
+## Project Structure: 
  - src: contains run.py file to launch gradio interface and interact with our application
  - scripts: contains CycleGAN and VGG-16 related code and dependencies 
+ - notebooks: contains .ipnyb notebooks for debugging and demo purposes
+ - training: training script for CycleGAN 
   
 ## Running our Gradio interface
 1. git clone this repo
@@ -30,7 +32,6 @@ python setup.py install
 ```
 python src/run.py 
 ```
-
 
 ## Team Members
  - Nick Morgan
