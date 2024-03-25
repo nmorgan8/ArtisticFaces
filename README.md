@@ -1,12 +1,7 @@
----
-title: Artistic_Faces
-app_file: run.py
-sdk: gradio
-sdk_version: 4.23.0
----
 # ArtisticFaces
 
-## Demo URL link: 
+## Demo URL link:
+
 https://ff0c6805f0b671d47c.gradio.live
 
 ## Overview
