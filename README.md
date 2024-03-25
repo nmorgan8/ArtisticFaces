@@ -6,6 +6,9 @@ sdk_version: 4.23.0
 ---
 # ArtisticFaces
 
+## Demo URL link: 
+https://ff0c6805f0b671d47c.gradio.live
+
 ## Overview
 
 This repo contains code for a machine learning based platform for transfering historical art styles like impressionism and realism into a user's uploaded/captured images in real-time using two different appraaches:
@@ -13,7 +16,7 @@ This repo contains code for a machine learning based platform for transfering hi
 - Training and fine-tuning a Cyclical Generative Adversarial Network (CycleGAN) on ImageNet and Wikiart dataset
 - Utilizing layers in VGG - 16 to capture style loss and information for style transference
 
-## Project Structure:
+## Project Structure
 
 - src: contains run.py file to launch gradio interface and interact with our application
 - scripts: contains CycleGAN and VGG-16 related code and dependencies
