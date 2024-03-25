@@ -1,5 +1,5 @@
 import tensorflow as tf
-from examples.tensorflow_examples.models.pix2pix import pix2pix
+from tensorflow_examples.models.pix2pix import pix2pix
 
 
 def get_generators():
@@ -23,11 +23,11 @@ def get_gen(art):
     discriminator_x = pix2pix.discriminator(norm_type='instancenorm', target=False)
     discriminator_y = pix2pix.discriminator(norm_type='instancenorm', target=False)
 
-    generator_g_optimizer = tf.keras.optimizers.legacy.Adam(2e-4, beta_1=0.5)
-    generator_f_optimizer = tf.keras.optimizers.legacy.Adam(2e-4, beta_1=0.5)
+    generator_g_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+    generator_f_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
 
-    discriminator_x_optimizer = tf.keras.optimizers.legacy.Adam(2e-4, beta_1=0.5)
-    discriminator_y_optimizer = tf.keras.optimizers.legacy.Adam(2e-4, beta_1=0.5)
+    discriminator_x_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+    discriminator_y_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
 
     ckpt = tf.train.Checkpoint(generator_g=generator_g,
                            generator_f=generator_f,

@@ -51,9 +51,9 @@ def generate_image(inp, art, choice):
 webcam = gr.Interface(
     fn=generate_image,
     inputs=[
-        gr.Image(source='webcam', label='Style Image'),
+        gr.Image(sources=['webcam'], label='Style Image'),
         gr.Dropdown(["Impressionism", "Symbolism", "Romanticism", "Realism"], label="Art Period"),
-        gr.Dropdown(["CycleGANs (UNET)", "VGG"], label="Model Choice")
+        gr.Dropdown(["VGG", "CycleGANs (UNET)"], label="Model Choice")
     ],
     outputs=[
         gr.Image(label='Stylized Image'),
@@ -67,9 +67,9 @@ webcam = gr.Interface(
 upload = gr.Interface(
     fn=generate_image,
     inputs=[
-        gr.Image(source='upload', label='Style Image'),
+        gr.Image(sources=['upload'], label='Style Image'),
         gr.Dropdown([ "Impressionism", "Symbolism", "Romanticism", "Realism"], label="Art Period"),
-        gr.Dropdown(["CycleGANs (UNET)", "VGG"], label="Model Choice")
+        gr.Dropdown(["VGG", "CycleGANs (UNET)"], label="Model Choice")
     ],
     outputs=[
         gr.Image(label='Stylized Image'),
@@ -82,5 +82,5 @@ upload = gr.Interface(
 
 demo = gr.TabbedInterface([webcam, upload], ["Webcam", "Upload"])
 
-demo.launch(share=False)
+demo.launch()
 

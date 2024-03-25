@@ -1,3 +1,9 @@
+---
+title: Artistic_Faces
+app_file: run.py
+sdk: gradio
+sdk_version: 4.23.0
+---
 # ArtisticFaces
 
 ## Overview

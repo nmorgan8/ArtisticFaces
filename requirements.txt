@@ -4,3 +4,4 @@ tensorflow_datasets
 tensorflow_hub
 matplotlib
 hyperas
+git+https://github.com/tensorflow/examples.git
